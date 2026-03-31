@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 
 export default function PazzaDao(db) {
-  
   const INSTRUCTOR_ROLES = ["FACULTY", "INSTRUCTOR", "TA"];
 
   const isInstructor = (user) =>
@@ -18,16 +17,25 @@ export default function PazzaDao(db) {
   }
 
   function findPostById(postId) {
-    return db.posts.find((p) => p._id === postId) ?? null;
+    return db.posts.find((p) => p.id === postId) ?? null;
   }
 
   function findPostsByFolder(courseId, folderId, userId) {
     return findPostsForCourse(courseId, userId).filter((p) =>
-      p.folderIds.includes(folderId)
+      p.folderIds.includes(folderId),
     );
   }
 
-  function createPost({ courseId, type, visibility, visibleTo = [], folderIds, summary, details, authorId }) {
+  function createPost({
+    courseId,
+    type,
+    visibility,
+    visibleTo = [],
+    folderIds,
+    summary,
+    details,
+    authorId,
+  }) {
     const post = {
       _id: uuidv4(),
       courseId,
@@ -66,4 +74,15 @@ export default function PazzaDao(db) {
     post.viewCount += 1;
     return post;
   }
-};
+
+  return {
+    isInstructor,
+    findPostsForCourse,
+    findPostById,
+    findPostsByFolder,
+    createPost,
+    updatePost,
+    deletePost,
+    incrementViewCount,
+  };
+}
