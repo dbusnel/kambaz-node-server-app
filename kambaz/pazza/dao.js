@@ -10,8 +10,14 @@ export default function PazzaDao(db) {
     const user = db.users.find((u) => u._id === userId);
     return db.posts.filter((p) => {
       if (p.courseId !== courseId) return false;
-      if (p.visibility === "instructors") return isInstructor(user);
+      if (p.visibility === "instructors") {
+        return isInstructor(user);
+      }
+      if (p.visibility === "individual") {
+        return p.visibleTo.includes(userId);
+      }
       if (p.visibility === "entire_class") return true;
+
       return p.visibleTo.includes(userId);
     });
   }
