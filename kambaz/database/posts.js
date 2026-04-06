@@ -52,16 +52,13 @@ export default [
             content: "Yes, you get one, two-sided sheet.",
             createdAt: "2026-03-31T13:05:00Z",
             updatedAt: "2026-03-31T13:05:00Z",
-            replies: [
-              {
-                id: "P1IA1FU1R2",
-                authorId: "234",
-                content: "Ok, thank you!",
-                createdAt: "2026-03-31T13:10:00Z",
-                updatedAt: "2026-03-31T13:10:00Z",
-                replies: [],
-              },
-            ],
+          },
+          {
+            id: "P1IA1FU1R2",
+            authorId: "234",
+            content: "Ok, thank you!",
+            createdAt: "2026-03-31T13:10:00Z",
+            updatedAt: "2026-03-31T13:10:00Z",
           },
         ],
       },
