@@ -81,6 +81,54 @@ export default function PazzaDao(db) {
     return post;
   }
 
+  function setDiscussionResolved(postId, discussionId, resolved) {
+    const post = db.posts.find((p) => p.id === postId || p._id === postId);
+    if (!post) return null;
+    const discussion = post.followUpDiscussions.find(
+      (d) => d.id === discussionId,
+    );
+    if (!discussion) return null;
+    discussion.resolved = resolved;
+    discussion.updatedAt = new Date().toISOString();
+    return discussion;
+  }
+
+  function createFollowUpDiscussion(postId, { authorId, content }) {
+    const post = db.posts.find((p) => p.id === postId || p._id === postId);
+    if (!post) return null;
+    const discussion = {
+      id: uuidv4(),
+      authorId,
+      content,
+      resolved: false,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      replies: [],
+    };
+    post.followUpDiscussions = [...post.followUpDiscussions, discussion];
+    post.updatedAt = new Date().toISOString();
+    return discussion;
+  }
+
+  function createReply(postId, discussionId, { authorId, content }) {
+    const post = db.posts.find((p) => p.id === postId || p._id === postId);
+    if (!post) return null;
+    const discussion = post.followUpDiscussions.find(
+      (d) => d.id === discussionId,
+    );
+    if (!discussion) return null;
+    const reply = {
+      id: uuidv4(),
+      authorId,
+      content,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    discussion.replies = [...discussion.replies, reply];
+    discussion.updatedAt = new Date().toISOString();
+    return reply;
+  }
+
   return {
     isInstructor,
     findPostsForCourse,
@@ -90,5 +138,8 @@ export default function PazzaDao(db) {
     updatePost,
     deletePost,
     incrementViewCount,
+    setDiscussionResolved,
+    createFollowUpDiscussion,
+    createReply,
   };
 }
