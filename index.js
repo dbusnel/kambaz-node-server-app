@@ -17,7 +17,7 @@ import ModulesRoutes from "./kambaz/modules/routes.js";
 import PazzaRoutes from "./kambaz/pazza/routes.js";
 import mongoose from "mongoose";
 
-const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kambaz";
+const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING || "mongodb+srv://boyajians_db_user:Cooper5678@kambaz.dgwzcgj.mongodb.net/?appName=Kambaz"
 mongoose.connect(CONNECTION_STRING);
 
 const app = express();
