@@ -43,9 +43,21 @@ export default function CourseRoutes(app, db) {
     res.send(status);
   }
 
+  const findUsersForCourse = (req, res) => {
+    const { courseId } = req.params;
+    const enrolledUserIds = db.enrollments
+      .filter((e) => e.course === courseId)
+      .map((e) => e.user);
+    const users = db.users
+      .filter((u) => enrolledUserIds.includes(u._id))
+      .map(({ _id, firstName, lastName, role }) => ({ _id, firstName, lastName, role }));
+    res.json(users);
+  };
+
   app.put("/api/courses/:courseId", updateCourse);
   app.delete("/api/courses/:courseId", deleteCourse);
   app.post("/api/users/current/courses", createCourse);
   app.get("/api/users/:userId/courses", findCoursesForEnrolledUser);
   app.get("/api/courses", findAllCourses);
+  app.get("/api/courses/:courseId/users", findUsersForCourse);
 }
