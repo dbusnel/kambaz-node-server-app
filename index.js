@@ -15,6 +15,10 @@ import CourseRoutes from "./kambaz/courses/routes.js";
 import AssignmentRoutes from "./kambaz/assignments/routes.js";
 import ModulesRoutes from "./kambaz/modules/routes.js";
 import PazzaRoutes from "./kambaz/pazza/routes.js";
+import mongoose from "mongoose";
+
+const CONNECTION_STRING = process.env.DATABASE_CONNECTION_STRING || "mongodb+srv://boyajians_db_user:Cooper5678@kambaz.dgwzcgj.mongodb.net/?appName=Kambaz"
+mongoose.connect(CONNECTION_STRING);
 
 const app = express();
 
@@ -41,13 +45,13 @@ if (process.env.SERVER_ENV !== "development") {
 }
 
 app.use(session(sessionOptions));
-
 app.use(express.json());
-UserRoutes(app, db);
+
+UserRoutes(app);
 CourseRoutes(app, db);
 AssignmentRoutes(app, db);
 ModulesRoutes(app, db);
-PazzaRoutes(app, db);
+PazzaRoutes(app);
 Lab5(app);
 Hello(app);
 PathParameters(app);
@@ -55,4 +59,5 @@ QueryParameters(app);
 WorkingWithObjects(app);
 ModuleRoute(app);
 WorkingWithArrays(app);
+
 app.listen(process.env.PORT || 4000);
