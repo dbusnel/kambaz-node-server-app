@@ -33,12 +33,14 @@ async function findPostsForCourse(courseId, userId) {
 }
 
 async function findPostById(postId, userId) {
-  const post = await PostModel.findById(postId);
+  const post = userId
+    ? await PostModel.findByIdAndUpdate(
+        postId,
+        { $addToSet: { readBy: userId } },
+        { new: true },
+      )
+    : await PostModel.findById(postId);
   if (!post) return null;
-  if (userId && !post.readBy.includes(userId)) {
-    post.readBy.push(userId);
-    await post.save();
-  }
   const obj = post.toObject();
   return { ...obj, id: obj._id };
 }
