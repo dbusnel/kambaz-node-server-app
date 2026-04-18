@@ -55,7 +55,7 @@ const postSchema = new mongoose.Schema(
     createdAt:            { type: String },
     updatedAt:            { type: String },
   },
-  { collection: "pazza_posts" },
+  { collection: "posts" }
 );
 
 export default postSchema;

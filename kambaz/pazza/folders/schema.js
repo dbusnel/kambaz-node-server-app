@@ -6,7 +6,7 @@ const folderSchema = new mongoose.Schema(
     courseId: { type: String, required: true },
     name:     { type: String, required: true },
   },
-  { collection: "pazza_folders" },
+  { collection: "folders" }
 );
 
 export default folderSchema;
