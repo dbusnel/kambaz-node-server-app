@@ -63,6 +63,7 @@ export default [
         ],
       },
     ],
+    readBy: [],
   },
   {
     id: "P2",
@@ -84,6 +85,7 @@ export default [
     instructorAnswers: [],
 
     followUpDiscussions: [],
+    readBy: [],
   },
   {
     id: "P3",
@@ -113,6 +115,7 @@ export default [
     ],
 
     followUpDiscussions: [],
+    readBy: [],
   },
   {
     id: "P4",
@@ -154,6 +157,7 @@ export default [
         replies: [],
       },
     ],
+    readBy: [],
   },
   {
     id: "P6",
@@ -175,6 +179,48 @@ export default [
     instructorAnswers: [],
 
     followUpDiscussions: [],
+    readBy: [],
+  },
+
+  // Yesterday
+  {
+    id: "P7",
+    courseId: "RS101",
+    type: "question",
+    visibility: "entire_class",
+    visibleTo: [],
+    folderIds: ["RS101F2"],
+    summary: "Assignment 4 submission format",
+    details: "Should we submit a zip file or push to GitHub for assignment 4?",
+    authorId: "234",
+    answered: false,
+    viewCount: 1,
+    createdAt: "2026-04-17T09:30:00Z",
+    updatedAt: "2026-04-17T09:30:00Z",
+    studentAnswers: [],
+    instructorAnswers: [],
+    followUpDiscussions: [],
+    readBy: [],
+  },
+
+  // Last week (April 7–13)
+  {
+    id: "P8",
+    courseId: "RS101",
+    type: "note",
+    visibility: "entire_class",
+    visibleTo: [],
+    folderIds: ["RS101F3"],
+    summary: "Class cancelled April 10th",
+    details: "Class on April 10th has been cancelled. Please review the posted reading materials instead.",
+    authorId: "678",
+    viewCount: 12,
+    createdAt: "2026-04-09T08:00:00Z",
+    updatedAt: "2026-04-09T08:00:00Z",
+    studentAnswers: [],
+    instructorAnswers: [],
+    followUpDiscussions: [],
+    readBy: [],
   },
 
   // RS102 posts
@@ -225,5 +271,6 @@ export default [
         replies: [],
       },
     ],
+    readBy: [],
   },
 ];
