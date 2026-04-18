@@ -25,6 +25,7 @@ async function findPostsForCourse(courseId, userId) {
       const readBy = obj.readBy ?? [];
       return {
         ...obj,
+        id: obj._id,
         readBy,
         unread: !readBy.includes(userId),
       };
@@ -38,7 +39,8 @@ async function findPostById(postId, userId) {
     post.readBy.push(userId);
     await post.save();
   }
-  return post.toObject();
+  const obj = post.toObject();
+  return { ...obj, id: obj._id };
 }
 
 async function findPostsByFolder(courseId, folderId, userId) {
@@ -76,7 +78,8 @@ async function createPost({
     createdAt: now,
     updatedAt: now,
   });
-  return post.toObject();
+  const obj = post.toObject();
+  return { ...obj, id: obj._id };
 }
 
 async function updatePost(postId, updates) {
@@ -276,19 +279,22 @@ async function deleteReply(postId, discussionId, replyId) {
 // ─── Folders ──────────────────────────────────────────────────────────────────
 
 async function findFoldersByCourse(courseId) {
-  return FolderModel.find({ courseId });
+  const folders = await FolderModel.find({ courseId });
+  return folders.map((f) => ({ ...f.toObject(), id: f._id }));
 }
 
 async function createFolder(courseId, name) {
-  return FolderModel.create({ _id: uuidv4(), courseId, name: name.trim() });
+  const folder = await FolderModel.create({ _id: uuidv4(), courseId, name: name.trim() });
+  return { ...folder.toObject(), id: folder._id };
 }
 
 async function updateFolder(folderId, name) {
-  return FolderModel.findByIdAndUpdate(
+  const folder = await FolderModel.findByIdAndUpdate(
     folderId,
     { $set: { name: name.trim() } },
     { new: true },
   );
+  return folder ? { ...folder.toObject(), id: folder._id } : null;
 }
 
 async function deleteFolder(folderId) {
