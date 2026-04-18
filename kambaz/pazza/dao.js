@@ -11,10 +11,10 @@ export default function PazzaDao(db) {
     return db.posts
       .filter((p) => {
         if (p.courseId !== courseId) return false;
-        if (p.visibility === "instructors") return isInstructor(user);
-        if (p.visibility === "individual") return p.visibleTo.includes(userId);
+        if (p.visibility === "instructors") return isInstructor(user) || p.authorId === userId;
+        if (p.visibility === "individual") return p.visibleTo.includes(userId) || p.authorId === userId;
         if (p.visibility === "entire_class") return true;
-        return p.visibleTo.includes(userId);
+        return p.visibleTo.includes(userId) || p.authorId === userId;
       })
       .map((p) => {
         const author = db.users.find((u) => u._id === p.authorId);
